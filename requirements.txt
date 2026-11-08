@@ -1,5 +1,4 @@
-# Retrieval, API and Streamlit environments (NOT vLLM-Metal).
-# Install vLLM-Metal separately according to its own documentation.
+# Retrieval/API/UI only; install vLLM-Metal separately on Apple Silicon.
 numpy>=1.26
 pypdf>=5.0
 sentence-transformers>=3.0

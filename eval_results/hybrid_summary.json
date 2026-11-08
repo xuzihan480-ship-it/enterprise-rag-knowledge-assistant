@@ -1,0 +1,46 @@
+{
+  "benchmark": "20 hand-labelled questions; 10-page fictional PDF; 48 original chunks",
+  "candidates_per_retriever": 8,
+  "rrf_k": 60,
+  "metric_k": 3,
+  "methods": {
+    "FAISS": {
+      "hit_at_3": 0.95,
+      "mrr_at_8": 0.6833333333333333,
+      "candidate_hit_at_8": 0.95,
+      "mean_latency_ms": 5.02955
+    },
+    "BM25": {
+      "hit_at_3": 0.95,
+      "mrr_at_8": 0.9375,
+      "candidate_hit_at_8": 1,
+      "mean_latency_ms": 0.0654
+    },
+    "FAISS+Rerank": {
+      "hit_at_3": 0.95,
+      "mrr_at_8": 0.9166666666666666,
+      "candidate_hit_at_8": 0.95,
+      "mean_latency_ms": 79.09165
+    },
+    "Hybrid-RRF": {
+      "hit_at_3": 1,
+      "mrr_at_8": 0.8666666666666667,
+      "candidate_hit_at_8": 1,
+      "mean_latency_ms": 5.0997
+    },
+    "Hybrid+Rerank": {
+      "hit_at_3": 1,
+      "mrr_at_8": 0.9666666666666667,
+      "candidate_hit_at_8": 1,
+      "mean_latency_ms": 76.5838
+    }
+  },
+  "limitations": [
+    "This is a small synthetic benchmark, not an external generalisation test.",
+    "Questions and gold anchors may share words with the source; lexical search can benefit.",
+    "All methods use the same PDF chunks and source-evidence labels.",
+    "RRF fuses each retriever's top 8 then keeps the top 8 for reranking.",
+    "Generation quality, refusal behaviour and factuality are NOT evaluated here.",
+    "Mean timings exclude initial model loading/index construction and hardware vary."
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "benchmark": "Small synthetic 10-page PDF / 48 chunks / 20 gold-labeled questions",
+  "split": "Odd question IDs = DEV (10), even IDs = HOLDOUT (10)",
+  "chosen_gate": {
+    "bm25_margin_min": 0.05,
+    "cosine_margin_min": 0.0
+  },
+  "selected_on": "DEV only; HOLDOUT was not used for threshold selection",
+  "threshold_grid": {
+    "bm25": [
+      0.0,
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "cosine": [
+      0.0,
+      0.02,
+      0.04,
+      0.08,
+      0.12
+    ]
+  },
+  "dev_mrr_tolerance": 0.02,
+  "metrics": {
+    "DEV": {
+      "Hybrid-RRF": {
+        "n": 10,
+        "hit_at_3": 1,
+        "mrr_at_8": 0.8333333333333334,
+        "rerank_rate": 0.0,
+        "estimated_latency_ms": 5.0833208952099085
+      },
+      "Hybrid+Rerank": {
+        "n": 10,
+        "hit_at_3": 1,
+        "mrr_at_8": 0.9333333333333333,
+        "rerank_rate": 1.0,
+        "estimated_latency_ms": 75.04718340933323
+      },
+      "Adaptive": {
+        "n": 10,
+        "hit_at_3": 1,
+        "mrr_at_8": 0.9333333333333333,
+        "rerank_rate": 0.7,
+        "estimated_latency_ms": 53.03350011818111
+      }
+    },
+    "HOLDOUT": {
+      "Hybrid-RRF": {
+        "n": 10,
+        "hit_at_3": 1,
+        "mrr_at_8": 0.9,
+        "rerank_rate": 0.0,
+        "estimated_latency_ms": 5.081812432035804
+      },
+      "Hybrid+Rerank": {
+        "n": 10,
+        "hit_at_3": 1,
+        "mrr_at_8": 1.0,
+        "rerank_rate": 1.0,
+        "estimated_latency_ms": 75.8017084095627
+      },
+      "Adaptive": {
+        "n": 10,
+        "hit_at_3": 1,
+        "mrr_at_8": 1.0,
+        "rerank_rate": 0.4,
+        "estimated_latency_ms": 33.09135418385267
+      }
+    }
+  },
+  "limits": [
+    "This is a 10+10 question synthetic development/holdout benchmark: too small for external generalization claims.",
+    "Holdout was not used for tuning. Do not adjust thresholds after seeing holdout results.",
+    "Adaptive latency is calculated from measured retrieval/rerank component costs, not direct API timing.",
+    "This evaluates retrieval ranking only, not answer correctness/refusal or end-to-end generation latency.",
+    "Any benefit from adaptive gating must be confirmed with more diverse independent documents/questions."
+  ]
+}

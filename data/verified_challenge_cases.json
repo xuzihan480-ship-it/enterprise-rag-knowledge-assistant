@@ -1,0 +1,31 @@
+{
+  "dataset_name": "Fresh fictional-handbook evidence challenge, version 1",
+  "description": "Newly authored questions not used in earlier threshold selection or six-case debugging. Same 10-page fictional PDF; NOT an external independent corpus. Labels for negative questions require human review.",
+  "cases": [
+    {"id":"P101","expected":"answer","question":"Which type of storage may be used when exporting Confidential extracts?","page":2,"anchor":"Confidential extracts may be exported only to approved encrypted storage."},
+    {"id":"P102","expected":"answer","question":"Name the three events that revoke an employee's dataset access.","page":2,"anchor":"Access is revoked at project closure, role change, or employment termination"},
+    {"id":"P103","expected":"answer","question":"What is the default retention period of operational access logs?","page":2,"anchor":"The default retention period for operational access logs is 180 days"},
+    {"id":"P104","expected":"answer","question":"Is an exception allowed to waive a Restricted-data control failure?","page":3,"anchor":"Restricted-data control failures cannot be waived through this exception process."},
+    {"id":"P105","expected":"answer","question":"What duplicate-primary-key rate is the highest acceptable under the quality rules?","page":3,"anchor":"No more than 0.5% duplicate primary keys"},
+    {"id":"P106","expected":"answer","question":"Which four items must be frozen for a reproducible dataset evaluation?","page":4,"anchor":"A reproducible evaluation result requires frozen data, code, thresholds, and sample selection."},
+    {"id":"P107","expected":"answer","question":"What minimum refusal score is a pilot release required to reach on unsupported questions?","page":5,"anchor":"Unsupported-answer refusal At least 0.95"},
+    {"id":"P108","expected":"answer","question":"Why doesn't a high cosine similarity by itself ensure a relevant answer?","page":7,"anchor":"A high cosine similarity indicates semantic closeness, not guaranteed usefulness for answering the question."},
+    {"id":"P109","expected":"answer","question":"Why are retrieval and language-model inference deployed as separate services?","page":9,"anchor":"Separating retrieval from inference allows the system to change a reranker without redeploying the generative model."},
+    {"id":"P110","expected":"answer","question":"What is the initial incident-response time goal for an S1 critical incident?","page":10,"anchor":"Within 15 minutes"},
+    {"id":"P111","expected":"answer","question":"What type of material should be used for a public demonstration rather than private documents?","page":8,"anchor":"use synthetic test content for public demonstrations."},
+    {"id":"P112","expected":"answer","question":"Does the first version of the ingestion service support OCR on scanned documents?","page":6,"anchor":"scanned images and OCR are explicitly outside the first release."},
+
+    {"id":"N111","expected":"abstain","question":"What is the exact yearly salary in AUD for the NDS data platform director?","label_note":"No employee-specific annual salary is given."},
+    {"id":"N112","expected":"abstain","question":"Which bank processes NDS employee payroll?","label_note":"Payroll bank name is not stated."},
+    {"id":"N113","expected":"abstain","question":"On which exact date was Northstar Data Services incorporated?","label_note":"No incorporation date is given; document release date is not the incorporation date."},
+    {"id":"N114","expected":"abstain","question":"How many full-time staff work at Northstar Data Services?","label_note":"No staff headcount is specified."},
+    {"id":"N115","expected":"abstain","question":"How many paid annual leave days does an NDS employee get?","label_note":"The handbook does not include leave entitlements."},
+    {"id":"N116","expected":"abstain","question":"What is the projected revenue for NDS in 2027?","label_note":"The handbook contains no company revenue forecast."},
+    {"id":"N117","expected":"abstain","question":"What is the office suite number on the NDS headquarters door?","label_note":"No physical office suite number is provided."},
+    {"id":"N118","expected":"abstain","question":"Who is the named chairperson of the NDS board?","label_note":"No board chairperson identity is recorded."},
+    {"id":"N119","expected":"abstain","question":"Which law firm advises NDS on corporate contracts?","label_note":"No law firm is named."},
+    {"id":"N120","expected":"abstain","question":"What is the monthly employee commuter allowance in dollars?","label_note":"No commuter allowance amount is given."},
+    {"id":"N121","expected":"abstain","question":"What is the DNS hostname of the NDS production PostgreSQL database?","label_note":"No production database hostname is specified."},
+    {"id":"N122","expected":"abstain","question":"What time does the NDS office cafeteria open on weekdays?","label_note":"Cafeteria operating hours are not specified."}
+  ]
+}

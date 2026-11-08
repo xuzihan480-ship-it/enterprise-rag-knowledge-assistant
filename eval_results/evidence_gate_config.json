@@ -1,0 +1,6 @@
+{
+  "min_cosine": 0.15,
+  "min_coverage": 0.3,
+  "selected_on": "DEV (10 positive + 5 negative questions)",
+  "notes": "Heuristic answerability filter; not verified factual support"
+}

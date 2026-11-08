@@ -1,186 +1,169 @@
-# Enterprise Knowledge Assistant
+# Adaptive Enterprise Knowledge Assistant
 
-**Local document question-answering with RAG, FAISS, cross-encoder reranking, and vLLM-Metal**
+**Evidence-aware document Q&A using hybrid retrieval, adaptive reranking and local Qwen2.5 inference.**
 
-A reproducible **personal engineering demonstration**, built and tested on an Apple M4 MacBook Air (16 GB unified memory). It answers questions about a fictional enterprise handbook using retrieved evidence and returns PDF page references.
+A working **local prototype** developed and tested on an Apple M4 MacBook Air (16 GB). It indexes a **fictional 10-page English enterprise handbook** (48 overlapping text chunks), retrieves evidence and generates short answers with source-page references—or explicitly abstains when evidence is insufficient. This repository is a research-and-engineering demonstration, **not an operational enterprise system**.
 
-> **Scope:** This is a single-PDF, local prototype and a small synthetic retrieval benchmark. It is **not** a production deployment, and the reported evaluation metrics are **not** production accuracy figures.
-
-## Features
-
-- Extract selectable PDF text with `pypdf` and split each page into overlapping chunks (700 characters, 120-character overlap).
-- Embed passages and questions with `sentence-transformers/all-MiniLM-L6-v2`.
-- Retrieve the **top 8** candidate passages using a normalized-vector FAISS inner-product index (`IndexFlatIP`).
-- Rerank candidates with the cross-encoder `cross-encoder/ms-marco-MiniLM-L6-v2`; send the **top 3** to the language model.
-- Generate answers using the **Qwen2.5-3B-Instruct-4bit** model served **locally** through vLLM-Metal's OpenAI-compatible API.
-- Expose `/health` and `/ask` through **FastAPI**, with a local **Streamlit** chat interface displaying source pages and excerpts.
-- Compare retrieval ranking before/after reranking using 20 hand-labelled, evidence-anchored questions.
-
-### Architecture
+## Architecture
 
 ```text
-             Fictional 10-page PDF
-                     |
-               pypdf extraction
-                     |
-         700-character overlapping chunks
-                     |
-         SentenceTransformer embeddings
-                     |
-              FAISS IndexFlatIP
-                     |
-User question -> embedding -> top-8 candidate retrieval
-                     |
-             Cross-Encoder rerank
-                     |
-            Top-3 evidence passages
-                     |
-      FastAPI -> vLLM-Metal local API (port 8000)
-                     |
-             Qwen2.5-3B response
-                     |
-   Streamlit UI (port 8501): answer + page references
+Fictional PDF -> pypdf text extraction -> overlapping chunks
+                                         |                           BM25 keyword search  FAISS semantic search (MiniLM)
+                                         \ /
+                                     RRF fusion (top-8)
+                                            |
+                              Adaptive rerank gate (DEV-tuned)
+                                  /                                                  skip                Cross-Encoder
+                                  \                    /
+                                     Top-3 evidence
+                                            |
+                         Evidence sufficiency heuristic (DEV-tuned)
+                                            |
+                         Qwen2.5-3B verifier via local vLLM-Metal
+                           (specific-answer check + verbatim quote)
+                                            |
+                           Exact quote matched against retrieved text
+                              -> derive/correct page or abstain
+                                            |
+                          FastAPI on :8001 -> Streamlit on :8503
 ```
 
-## Evaluated retrieval results
+**Important:** Verbatim quote matching establishes **provenance**, not logical entailment. The 3B verifier can misjudge semantic support, and strict checks can incorrectly reject answerable questions. A failed model-service call is treated as an error, **not** a successful refusal.
 
-**Benchmark:** One fictional 10-page PDF; 48 indexed chunks; 20 questions, each with a manually specified source-page and exact evidence anchor.
+## Highlights
 
-| Measure | FAISS | FAISS + reranking |
-| --- | ---: | ---: |
-| Hit@3 | 95.0% | 95.0% |
-| MRR@8 | 0.683 | 0.917 |
-| Average retrieval time per question | 5.15 ms | 78.29 ms |
+- **Hybrid retrieval:** in-project BM25 implementation + FAISS dense search + reciprocal rank fusion (RRF).
+- **Adaptive reranking:** compare top-1 agreement and relative score margins to selectively invoke a MiniLM cross-encoder; thresholds selected using the original **10-question DEV** subset and held fixed on the 10-question HOLDOUT.
+- **Evidence-aware answers:** a lightweight evidence filter, followed by a local model that checks for direct support and returns an exact supporting quote. Code derives page numbers from the retrieved passage rather than trusting model-generated page numbers.
+- **Integrated UI and API:** FastAPI `GET /health`, `POST /ask`; Streamlit chat with retrieval route, citations and refusal reasons.
+- **Reproducible scripts:** algorithm comparisons, DEV/HOLDOUT analysis and answerability challenge tests (with explicit limitations).
 
-- Absolute MRR@8 increase: **0.233**; relative increase: **~34.1%** on this benchmark.
-- Correct evidence moved to a better rank for **9/20** questions; rank was unchanged for the other 11.
-- The initially retrieved top-8 candidates contained the gold evidence for **19/20** questions. Reranking cannot recover an answer missing from that candidate set.
-- Reranking added approximately **73.14 ms/query** on the evaluation machine.
-- These are **retrieval-only** metrics; they do not measure generated-answer correctness, statistical significance, or production performance.
+## Measured results (local / synthetic)
 
-See [`docs/EVALUATION_REPORT.md`](docs/EVALUATION_REPORT.md), [`eval_results/summary.json`](eval_results/summary.json), and [`eval_results/retrieval_comparison.csv`](eval_results/retrieval_comparison.csv) for the method, results, and limitations.
+### Retrieval comparison — 20 labelled questions, one 10-page PDF, 48 chunks
 
-## Project structure
+| Method | Hit@3 | MRR@8 | Mean retrieval time |
+|:--|--:|--:|--:|
+| FAISS | 95% | 0.683 | 5.03 ms |
+| BM25 | 95% | 0.938 | 0.07 ms |
+| FAISS + Cross-Encoder | 95% | 0.917 | 79.09 ms |
+| Hybrid RRF | 100% | 0.867 | 5.10 ms |
+| **Hybrid + Cross-Encoder** | **100%** | **0.967** | 76.58 ms |
 
-```text
-enterprise_knowledge_assistant/
-├── app.py                         # FastAPI retrieval/rerank/generation endpoint
-├── web_ui.py                      # Streamlit chat interface
-├── evaluate.py                    # 20-query retrieval evaluation
-├── pdf_retrieval.py               # Standalone PDF retrieval example
-├── retrieval.py                   # Standalone four-document prototype
-├── data/
-│   ├── enterprise_knowledge_base_demo.pdf
-│   └── company_knowledge.txt
-├── eval_results/
-│   ├── retrieval_comparison.csv
-│   └── summary.json
-├── docs/
-│   ├── EVALUATION_REPORT.md
-│   ├── RUN_COMMANDS.md
-│   └── RESUME_PROJECT_CN.md
-├── requirements.txt
-└── .gitignore
-```
+See [`eval_results/hybrid_summary.json`](eval_results/hybrid_summary.json). This experiment measures **retrieval ranking, not generated-answer accuracy**. BM25 is strong on this lexical-overlap-heavy synthetic dataset.
 
-The fictional PDF is provided as **demonstration content**, not actual company data. The main application currently indexes a fixed PDF on startup; the UI does not offer document uploads.
+### Adaptive reranking — 10 DEV + 10 HOLDOUT questions
 
-## Run locally
+| HOLDOUT method | Hit@3 | MRR@8 | Rerank usage | Estimated retrieval cost |
+|:--|--:|--:|--:|--:|
+| Hybrid RRF | 100% | 0.900 | 0% | 5.08 ms/query |
+| Hybrid + Cross-Encoder | 100% | 1.000 | 100% | 75.80 ms/query |
+| **Adaptive** | **100%** | **1.000** | **40%** | **33.09 ms/query** |
 
-### 1. Python environment
+The adaptive gate reduced reranker usage by **60%** in this **10-question** holdout. Its **56.3% estimated retrieval-cost reduction** comes from measured component costs—not a direct API response-time benchmark. See [`eval_results/adaptive_summary.json`](eval_results/adaptive_summary.json).
 
-Use **Python 3.12 or 3.13** in a clean virtual environment on macOS. The machine used for this project used Python 3.13 for the retrieval/API/UI environment.
+### Evidence-aware QA — 24 new internal challenge questions
+
+| Measure | Observed |
+|:--|--:|
+| Answerable questions accepted | **9/12 (75%)** |
+| Unanswerable questions rejected | **12/12 (100%)** |
+| Balanced answerability decision accuracy | **87.5%** |
+| Correct source-page result among 12 answerable cases | **9/12 (75%)** |
+
+These aggregate figures were recorded from the local final evaluation run. They reflect **decision outcomes and source-page checks, not independent answer factuality review**. The 24 cases use the *same fictional PDF* and were authored after investigating earlier errors; this is **not an independent external benchmark**. The strict verifier sometimes falsely abstains, including on a question about reranking. See [`docs/FINAL_EVALUATION.md`](docs/FINAL_EVALUATION.md). Raw final-run `verified_challenge.json` and `.csv` were saved on the Mac but were **not present in the available project ZIP**; they should be added separately if publishing per-question evidence.
+
+## Run locally on Apple Silicon
+
+The retrieval/API/UI environment and vLLM-Metal inference environment are **separate**. vLLM-Metal here serves a quantized **Qwen2.5-3B-Instruct-4bit** model, **not** CUDA vLLM or a paid GPU cloud deployment.
+
+1. Create the retrieval environment (Python 3.12 or 3.13):
 
 ```bash
-cd enterprise_knowledge_assistant
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-Some Apple Silicon environments have native-library threading issues. For API and evaluation runs, limit the relevant CPU threads as shown below.
-
-### 2. Start vLLM-Metal (separate environment, terminal A)
-
-Install vLLM-Metal by following the official project's current installation instructions: https://github.com/vllm-project/vllm-metal
-
-In the setup tested for this project, the dedicated environment was located at `~/.venv-vllm-metal`. Once installed, run:
+2. Install vLLM-Metal separately, following its [official project](https://github.com/vllm-project/vllm-metal). For the existing setup, terminal A:
 
 ```bash
 ~/.venv-vllm-metal/bin/vllm serve mlx-community/Qwen2.5-3B-Instruct-4bit \
-  --host 127.0.0.1 --port 8000 \
-  --gpu-memory-utilization 0.4 --max-model-len 2048
+  --host 127.0.0.1 --port 8000 --gpu-memory-utilization 0.4 --max-model-len 2048
 ```
 
-Do not close this terminal while testing the chat application. Validate the service from another terminal:
+3. Terminal B (API):
 
 ```bash
-curl -sS http://127.0.0.1:8000/v1/models
-```
-
-**Important:** This project validated **vLLM-Metal on Apple Silicon**, **not a CUDA/NVIDIA deployment**. A separate Modal/L4 experiment was attempted but was blocked because the service required adding a payment method; it is not included as a completed deployment.
-
-### 3. Start FastAPI (terminal B)
-
-```bash
-cd enterprise_knowledge_assistant
+cd enterprise-rag-knowledge-assistant
 source .venv/bin/activate
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 \
-TOKENIZERS_PARALLELISM=false \
-python -m uvicorn app:app --host 127.0.0.1 --port 8001
+TOKENIZERS_PARALLELISM=false python -m uvicorn app_verified:app --host 127.0.0.1 --port 8001
 ```
 
-Check:
-- Health: http://127.0.0.1:8001/health
-- Interactive API docs: http://127.0.0.1:8001/docs
-
-Example request:
+4. Terminal C (UI):
 
 ```bash
-curl -sS http://127.0.0.1:8001/ask \
-  -H 'Content-Type: application/json' \
-  -d '{"question":"What are the five data quality dimensions?"}'
-```
-
-### 4. Start Streamlit (terminal C)
-
-```bash
-cd enterprise_knowledge_assistant
+cd enterprise-rag-knowledge-assistant
 source .venv/bin/activate
-python -m streamlit run web_ui.py --server.port 8501
+python -m streamlit run web_ui_verified.py --server.port 8503
 ```
 
-Open http://localhost:8501.
+Open `http://localhost:8503` or `http://127.0.0.1:8001/docs`.
 
-### 5. Reproduce the retrieval benchmark
+Example questions:
 
-The following commands do **not** need vLLM, FastAPI, Streamlit, or a cloud GPU.
+- Answerable: `What are the five data quality dimensions?` (handbook page 3)
+- Answerable: `How long does a standard access grant last?` (page 2)
+- Unanswerable: `What is the official customer support telephone number?` (should abstain)
+
+A correct page is **not** evidence of overall factuality by itself. These services bind to localhost and are not internet-hosted.
+
+## Reproduce the tests
+
+Offline validation and unit checks (no running LLM required):
 
 ```bash
-cd enterprise_knowledge_assistant
-source .venv/bin/activate
-python evaluate.py --validate-only
-
-OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 \
-TOKENIZERS_PARALLELISM=false python evaluate.py
+python evaluate_verified.py --validate-only
+python -m unittest discover -s tests -p 'test_verified_core.py'
+python answer_support.py
 ```
 
-The script regenerates `eval_results/summary.json` and `eval_results/retrieval_comparison.csv`. Timings can vary between runs and computers.
+Run with vLLM on :8000 (prefer stopping the UI/API first on 16 GB memory):
 
-## Current limitations and next steps
+```bash
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 TOKENIZERS_PARALLELISM=false python evaluate_hybrid.py
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 TOKENIZERS_PARALLELISM=false python evaluate_adaptive.py
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 TOKENIZERS_PARALLELISM=false python evaluate_verified.py
+```
 
-1. **Synthetic, single-document benchmark:** Evaluated on a fictional handbook with 20 questions; it is not a real enterprise workload.
-2. **Chunk quality:** Fixed-length character splits can cut sentences in half and duplicate overlapping content; page numbers are tracked but chunks lack stable semantic boundaries.
-3. **Retrieval misses:** One test question (Q06) did not retrieve the labelled evidence in the first eight candidates. Reranking cannot correct an initial retrieval miss.
-4. **Generation quality:** Small language models can give incomplete answers even when relevant context is retrieved. Manual checks found both successes and omissions; automated answer correctness was not measured.
-5. **Limited deployment scope:** The server binds to localhost, uses a static PDF and hard-coded model name, and has no authentication, rate limits, or production monitoring.
-6. **Document safety:** Retrieved text is treated as reference material, but this demo has no fully evaluated prompt-injection defence or access-control system.
+`evaluate_verified.py --smoke` runs 4 diagnostic cases, **not** the final 24-case benchmark. Scores are small-sample descriptive results; model downloads, hardware and version drift can affect timings and outputs.
 
-Potential improvements: section-aware or token-aware chunking, multiple-document indexing, evaluation on an independent held-out set, automated answer-grounding tests, and additional failure-case analysis.
+## Repository organization
 
-## Reproducibility and attribution
+```text
+app_verified.py, verified_rag.py         # Final FastAPI / retrieval-and-verification pipeline
+web_ui_verified.py                      # Final Streamlit chat
+hybrid_retrieval.py, adaptive_rerank.py  # Retrieval/fusion and adaptive gate
+answer_support.py, evidence_guard.py    # Evidence checks and quote/page resolution
+evaluate_hybrid.py, evaluate_adaptive.py, evaluate_verified.py
+                                       # Separate evaluation scripts
+data/verified_challenge_cases.json      # 24 hand-checked internal test labels
+eval_results/hybrid_summary.json, adaptive_summary.json
+                                       # Stored retrieval metrics
+docs/FINAL_EVALUATION.md               # Evaluation interpretation and limitations
+tests/test_verified_core.py             # Pure offline regression checks
+app.py, web_ui.py, evaluate.py          # Original baseline kept for comparison
+```
 
-The included `eval_results` files are actual saved results from the local evaluation. The result summary identifies model versions by repository ID but does not freeze downloaded model revisions, so very small differences may occur on rerun.
+## Limitations
 
-No private company materials, paid APIs, published papers, production SLAs, or cloud GPU deployments are claimed by this project.
+- Fixed *fictional* 10-page PDF and manually authored questions; no multi-document or cross-domain evidence of generalization.
+- A small 10-question adaptive HOLDOUT is not proof of robust deployment-level cost improvement.
+- Quote matching is not semantic entailment validation; the LLM verifier can return wrong judgments or hallucinated answers.
+- Conservative evidence checking yields false abstentions; **75%** of answerable challenge queries were accepted.
+- Local-only deployment: no authentication, access control, API hardening, ingestion UI, production monitoring, or cloud GPU benchmark.
+- Verifier latency is additional to retrieval latency. Measured single-query timings must not be treated as full-system latency distributions.
+- RAG prompt injection, adversarial robustness and data confidentiality are not comprehensively evaluated.
+
+All demo content is fictional. Project implementation, measured trade-offs and failure analysis are documented without claims of original theoretical novelty, publications, or production deployment.

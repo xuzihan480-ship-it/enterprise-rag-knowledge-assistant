@@ -1,0 +1,101 @@
+﻿question_id,question,gold_page,method,gold_rank_at_8,hit_at_3,mrr_at_8,hit_at_8,latency_ms,top3_pages,top8_ids
+Q01,How long does a standard access grant last?,2,FAISS,3,1,0.3333333333333333,1,6.851,3|2|2,12|6|5|34|11|4|1|17
+Q01,How long does a standard access grant last?,2,BM25,4,0,0.25,1,0.06,8|3|6,34|12|25|5|28|2|21|26
+Q01,How long does a standard access grant last?,2,FAISS+Rerank,3,1,0.3333333333333333,1,96.411,3|8|2,12|34|5|6|11|17|4|1
+Q01,How long does a standard access grant last?,2,Hybrid-RRF,3,1,0.3333333333333333,1,6.917,3|8|2,12|34|5|6|25|11|28|2
+Q01,How long does a standard access grant last?,2,Hybrid+Rerank,3,1,0.3333333333333333,1,76.847,3|8|2,12|34|5|6|11|28|2|25
+Q02,Who must additionally approve access to Restricted data?,2,FAISS,2,1,0.5,1,4.364,2|2|2,4|5|7|6|36|3|1|11
+Q02,Who must additionally approve access to Restricted data?,2,BM25,1,1,1.0,1,0.058,2|2|2,5|6|4|3|7|36|11|35
+Q02,Who must additionally approve access to Restricted data?,2,FAISS+Rerank,1,1,1.0,1,76.919,2|2|2,5|4|7|6|36|11|3|1
+Q02,Who must additionally approve access to Restricted data?,2,Hybrid-RRF,1,1,1.0,1,4.426,2|2|2,5|4|6|7|3|36|11|1
+Q02,Who must additionally approve access to Restricted data?,2,Hybrid+Rerank,1,1,1.0,1,68.767,2|2|2,5|4|7|6|36|11|3|1
+Q03,Can Restricted data be copied onto personal devices?,2,FAISS,2,1,0.5,1,5.018,2|2|2,7|6|4|36|5|3|33|23
+Q03,Can Restricted data be copied onto personal devices?,2,BM25,1,1,1.0,1,0.053,2|2|2,6|7|4|3|11|24|5|36
+Q03,Can Restricted data be copied onto personal devices?,2,FAISS+Rerank,1,1,1.0,1,73.673,2|2|2,6|7|4|5|36|3|23|33
+Q03,Can Restricted data be copied onto personal devices?,2,Hybrid-RRF,1,1,1.0,1,5.075,2|2|2,6|7|4|3|36|5|11|24
+Q03,Can Restricted data be copied onto personal devices?,2,Hybrid+Rerank,1,1,1.0,1,71.269,2|2|3,6|7|11|4|5|36|3|24
+Q04,What are the five data quality dimensions?,3,FAISS,1,1,1.0,1,4.621,3|3|4,8|11|16|3|17|10|12|0
+Q04,What are the five data quality dimensions?,3,BM25,1,1,1.0,1,0.061,3|5|7,8|21|31|30|1|32|12|20
+Q04,What are the five data quality dimensions?,3,FAISS+Rerank,1,1,1.0,1,84.305,3|4|3,8|16|11|12|10|17|3|0
+Q04,What are the five data quality dimensions?,3,Hybrid-RRF,1,1,1.0,1,4.687,3|3|3,8|12|11|21|16|31|3|30
+Q04,What are the five data quality dimensions?,3,Hybrid+Rerank,1,1,1.0,1,74.339,3|7|7,8|31|30|16|21|11|12|3
+Q05,What happens to the new dataset release if a quality check fails?,3,FAISS,2,1,0.5,1,4.854,3|3|4,11|10|17|45|8|16|21|12
+Q05,What happens to the new dataset release if a quality check fails?,3,BM25,1,1,1.0,1,0.074,3|10|4,10|45|17|31|13|9|20|1
+Q05,What happens to the new dataset release if a quality check fails?,3,FAISS+Rerank,1,1,1.0,1,76.526,3|3|4,10|11|17|16|21|45|8|12
+Q05,What happens to the new dataset release if a quality check fails?,3,Hybrid-RRF,1,1,1.0,1,4.934,3|10|4,10|45|17|11|31|8|13|9
+Q05,What happens to the new dataset release if a quality check fails?,3,Hybrid+Rerank,1,1,1.0,1,80.929,3|3|4,10|11|17|31|45|8|9|13
+Q06,How quickly must new daily data become available?,3,FAISS,0,0,0.0,0,4.563,3|2|10,12|6|43|8|3|0|27|23
+Q06,How quickly must new daily data become available?,3,BM25,1,1,1.0,1,0.048,3|8|3,9|34|10|14|13|12|4|35
+Q06,How quickly must new daily data become available?,3,FAISS+Rerank,0,0,0.0,0,74.464,2|3|10,6|12|43|8|27|3|23|0
+Q06,How quickly must new daily data become available?,3,Hybrid-RRF,2,1,0.5,1,4.616,3|3|2,12|9|6|34|10|43|8|14
+Q06,How quickly must new daily data become available?,3,Hybrid+Rerank,1,1,1.0,1,71.571,3|2|3,9|6|12|10|14|34|43|8
+Q07,What is the default sampling rate for routine dataset evaluation?,4,FAISS,1,1,1.0,1,5.185,4|4|4,14|13|16|19|41|43|15|3
+Q07,What is the default sampling rate for routine dataset evaluation?,4,BM25,1,1,1.0,1,0.076,4|4|2,14|13|6|3|32|16|7|41
+Q07,What is the default sampling rate for routine dataset evaluation?,4,FAISS+Rerank,1,1,1.0,1,82.798,4|4|4,14|13|16|15|3|43|41|19
+Q07,What is the default sampling rate for routine dataset evaluation?,4,Hybrid-RRF,1,1,1.0,1,5.266,4|4|4,14|13|16|3|41|6|19|32
+Q07,What is the default sampling rate for routine dataset evaluation?,4,Hybrid+Rerank,1,1,1.0,1,81.809,4|4|7,14|13|32|16|3|6|41|19
+Q08,How much of the sample is reviewed by a second annotator?,4,FAISS,1,1,1.0,1,5.28,4|4|8,15|14|34|13|16|19|24|31
+Q08,How much of the sample is reviewed by a second annotator?,4,BM25,1,1,1.0,1,0.077,4|8|4,15|34|14|46|1|42|40|10
+Q08,How much of the sample is reviewed by a second annotator?,4,FAISS+Rerank,1,1,1.0,1,81.172,4|8|4,15|34|14|31|16|13|19|24
+Q08,How much of the sample is reviewed by a second annotator?,4,Hybrid-RRF,1,1,1.0,1,5.363,4|4|8,15|14|34|13|46|1|16|19
+Q08,How much of the sample is reviewed by a second annotator?,4,Hybrid+Rerank,1,1,1.0,1,77.904,4|8|4,15|34|14|16|13|1|19|46
+Q09,What must be specified when data is Accepted with Conditions?,4,FAISS,2,1,0.5,1,5.283,4|4|3,16|17|8|36|11|3|37|9
+Q09,What must be specified when data is Accepted with Conditions?,4,BM25,1,1,1.0,1,0.068,4|4|9,17|16|41|1|11|34|14|6
+Q09,What must be specified when data is Accepted with Conditions?,4,FAISS+Rerank,1,1,1.0,1,74.85,4|4|3,17|16|11|9|8|36|3|37
+Q09,What must be specified when data is Accepted with Conditions?,4,Hybrid-RRF,2,1,0.5,1,5.355,4|4|3,16|17|11|8|41|1|36|3
+Q09,What must be specified when data is Accepted with Conditions?,4,Hybrid+Rerank,1,1,1.0,1,81.144,4|4|3,17|16|11|8|36|3|41|1
+Q10,How many answerable and unanswerable questions are in the pilot benchmark?,5,FAISS,1,1,1.0,1,5.234,5|9|5,19|41|20|30|37|40|32|18
+Q10,How many answerable and unanswerable questions are in the pilot benchmark?,5,BM25,1,1,1.0,1,0.074,5|8|5,19|37|20|1|21|32|41|44
+Q10,How many answerable and unanswerable questions are in the pilot benchmark?,5,FAISS+Rerank,1,1,1.0,1,86.544,5|8|5,19|37|20|40|18|32|41|30
+Q10,How many answerable and unanswerable questions are in the pilot benchmark?,5,Hybrid-RRF,1,1,1.0,1,5.312,5|5|8,19|20|37|41|32|1|30|21
+Q10,How many answerable and unanswerable questions are in the pilot benchmark?,5,Hybrid+Rerank,1,1,1.0,1,82.082,5|8|5,19|37|20|32|1|41|21|30
+Q11,What evidence-recall decrease triggers a release investigation?,5,FAISS,2,1,0.5,1,4.149,10|5|4,45|21|17|46|19|16|20|10
+Q11,What evidence-recall decrease triggers a release investigation?,5,BM25,1,1,1.0,1,0.057,5|5|10,21|19|45|20|1|34|18|46
+Q11,What evidence-recall decrease triggers a release investigation?,5,FAISS+Rerank,1,1,1.0,1,71.467,5|10|5,21|45|20|46|19|17|10|16
+Q11,What evidence-recall decrease triggers a release investigation?,5,Hybrid-RRF,1,1,1.0,1,4.21,5|10|5,21|45|19|20|46|17|1|16
+Q11,What evidence-recall decrease triggers a release investigation?,5,Hybrid+Rerank,1,1,1.0,1,70.778,5|10|5,21|45|20|46|19|17|16|1
+Q12,Does a reranker score of 7.5 mean 75 percent confidence?,5,FAISS,1,1,1.0,1,5.269,5|7|5,22|30|20|31|32|19|29|16
+Q12,Does a reranker score of 7.5 mean 75 percent confidence?,5,BM25,1,1,1.0,1,0.066,5|7|1,22|30|2|34|26|25|33|29
+Q12,Does a reranker score of 7.5 mean 75 percent confidence?,5,FAISS+Rerank,1,1,1.0,1,80.636,5|7|7,22|30|29|32|31|20|19|16
+Q12,Does a reranker score of 7.5 mean 75 percent confidence?,5,Hybrid-RRF,1,1,1.0,1,5.34,5|7|7,22|30|29|2|20|31|34|26
+Q12,Does a reranker score of 7.5 mean 75 percent confidence?,5,Hybrid+Rerank,1,1,1.0,1,80.724,5|7|7,22|30|29|2|31|20|26|34
+Q13,What chunk size and overlap does the handbook recommend?,6,FAISS,2,1,0.5,1,4.895,6|6|6,27|24|25|47|2|23|1|34
+Q13,What chunk size and overlap does the handbook recommend?,6,BM25,2,1,0.5,1,0.065,6|6|8,27|24|34|1|25|2|33|26
+Q13,What chunk size and overlap does the handbook recommend?,6,FAISS+Rerank,1,1,1.0,1,73.887,6|6|1,24|27|2|25|23|34|47|1
+Q13,What chunk size and overlap does the handbook recommend?,6,Hybrid-RRF,2,1,0.5,1,4.964,6|6|6,27|24|25|34|1|2|47|23
+Q13,What chunk size and overlap does the handbook recommend?,6,Hybrid+Rerank,1,1,1.0,1,71.993,6|6|1,24|27|2|25|23|34|47|1
+Q14,How are embedding vectors prepared for FAISS cosine-similarity search?,6,FAISS,1,1,1.0,1,5.027,6|7|7,25|29|28|46|26|30|22|31
+Q14,How are embedding vectors prepared for FAISS cosine-similarity search?,6,BM25,1,1,1.0,1,0.065,6|7|7,25|28|29|46|0|42|26|23
+Q14,How are embedding vectors prepared for FAISS cosine-similarity search?,6,FAISS+Rerank,1,1,1.0,1,77.09,6|10|7,25|46|29|28|26|30|31|22
+Q14,How are embedding vectors prepared for FAISS cosine-similarity search?,6,Hybrid-RRF,1,1,1.0,1,5.096,6|7|7,25|28|29|46|26|0|30|42
+Q14,How are embedding vectors prepared for FAISS cosine-similarity search?,6,Hybrid+Rerank,1,1,1.0,1,72.173,6|10|7,25|46|29|28|42|26|0|30
+Q15,How does a cross-encoder evaluate question and passage relevance?,7,FAISS,1,1,1.0,1,4.884,7|10|7,29|46|30|25|31|22|19|28
+Q15,How does a cross-encoder evaluate question and passage relevance?,7,BM25,1,1,1.0,1,0.063,7|5|8,29|22|34|1|30|31|27|42
+Q15,How does a cross-encoder evaluate question and passage relevance?,7,FAISS+Rerank,1,1,1.0,1,76.623,7|7|7,29|30|31|22|25|46|28|19
+Q15,How does a cross-encoder evaluate question and passage relevance?,7,Hybrid-RRF,1,1,1.0,1,4.951,7|5|7,29|22|30|31|46|34|1|25
+Q15,How does a cross-encoder evaluate question and passage relevance?,7,Hybrid+Rerank,1,1,1.0,1,77.17,7|7|7,29|30|31|22|1|25|46|34
+Q16,What is the ranking benefit and latency drawback of reranking?,7,FAISS,2,1,0.5,1,5.301,5|7|7,22|30|29|31|26|32|39|46
+Q16,What is the ranking benefit and latency drawback of reranking?,7,BM25,1,1,1.0,1,0.074,7|7|7,30|31|28|40|22|1|41|34
+Q16,What is the ranking benefit and latency drawback of reranking?,7,FAISS+Rerank,1,1,1.0,1,78.32,7|5|7,30|22|31|29|46|39|32|26
+Q16,What is the ranking benefit and latency drawback of reranking?,7,Hybrid-RRF,1,1,1.0,1,5.381,7|5|7,30|22|31|28|29|40|26|1
+Q16,What is the ranking benefit and latency drawback of reranking?,7,Hybrid+Rerank,1,1,1.0,1,77.898,7|5|7,30|22|31|29|28|1|40|26
+Q17,What must the assistant say if the handbook cannot answer a question?,8,FAISS,2,1,0.5,1,5.178,8|8|1,37|34|2|47|1|19|35|36
+Q17,What must the assistant say if the handbook cannot answer a question?,8,BM25,1,1,1.0,1,0.079,8|8|1,34|33|1|37|19|35|2|31
+Q17,What must the assistant say if the handbook cannot answer a question?,8,FAISS+Rerank,1,1,1.0,1,74.266,8|8|1,34|37|2|1|35|47|36|19
+Q17,What must the assistant say if the handbook cannot answer a question?,8,Hybrid-RRF,1,1,1.0,1,5.261,8|8|1,34|37|1|2|19|35|33|47
+Q17,What must the assistant say if the handbook cannot answer a question?,8,Hybrid+Rerank,1,1,1.0,1,74.566,8|8|8,34|37|33|2|1|35|47|19
+Q18,Should an instruction embedded in a retrieved PDF override the application rules?,8,FAISS,1,1,1.0,1,5.134,8|1|6,35|1|25|36|26|24|23|7
+Q18,Should an instruction embedded in a retrieved PDF override the application rules?,8,BM25,1,1,1.0,1,0.08,8|8|9,35|36|39|33|24|25|14|34
+Q18,Should an instruction embedded in a retrieved PDF override the application rules?,8,FAISS+Rerank,1,1,1.0,1,77.531,8|6|8,35|25|36|24|7|1|26|23
+Q18,Should an instruction embedded in a retrieved PDF override the application rules?,8,Hybrid-RRF,1,1,1.0,1,5.219,8|8|6,35|36|25|24|1|39|33|26
+Q18,Should an instruction embedded in a retrieved PDF override the application rules?,8,Hybrid+Rerank,1,1,1.0,1,80.058,8|6|8,35|25|33|36|24|1|26|39
+Q19,What OpenAI-compatible chat-completions URL path does vLLM expose?,9,FAISS,1,1,1.0,1,5.217,9|9|9,39|42|38|41|40|43|23|36
+Q19,What OpenAI-compatible chat-completions URL path does vLLM expose?,9,BM25,1,1,1.0,1,0.049,9|9|1,39|42|2|34|1|38|41|46
+Q19,What OpenAI-compatible chat-completions URL path does vLLM expose?,9,FAISS+Rerank,1,1,1.0,1,84.165,9|9|9,39|42|38|36|40|41|23|43
+Q19,What OpenAI-compatible chat-completions URL path does vLLM expose?,9,Hybrid-RRF,1,1,1.0,1,5.271,9|9|9,39|42|38|41|2|34|1|40
+Q19,What OpenAI-compatible chat-completions URL path does vLLM expose?,9,Hybrid+Rerank,1,1,1.0,1,82.553,9|9|1,39|42|2|38|40|41|1|34
+Q20,Why distinguish cold-start and warm-request response latency?,10,FAISS,3,1,0.3333333333333333,1,4.284,10|9|10,44|40|43|41|20|39|8|35
+Q20,Why distinguish cold-start and warm-request response latency?,10,BM25,1,1,1.0,1,0.061,10|10|9,43|44|41|40|26|21|20|27
+Q20,Why distinguish cold-start and warm-request response latency?,10,FAISS+Rerank,1,1,1.0,1,80.186,10|10|9,43|44|41|20|40|39|35|8
+Q20,Why distinguish cold-start and warm-request response latency?,10,Hybrid-RRF,2,1,0.5,1,4.35,10|10|9,44|43|40|41|20|26|21|39
+Q20,Why distinguish cold-start and warm-request response latency?,10,Hybrid+Rerank,1,1,1.0,1,77.102,10|10|9,43|44|41|20|40|21|39|26

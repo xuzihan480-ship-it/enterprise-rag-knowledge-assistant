@@ -1,0 +1,21 @@
+﻿question_id,split,question,gold_page,top1_agreement,bm25_relative_margin,cosine_relative_margin,skip_rerank,hybrid_rrf_gold_rank,hybrid_rerank_gold_rank,adaptive_gold_rank,adaptive_hit_at_3,adaptive_mrr_at_8,retrieval_ms,rerank_ms,estimated_adaptive_ms
+Q01,DEV,How long does a standard access grant last?,2,0,0.45847,0.01107,0,3,3,3,1,0.333333,5.352,62.597,67.949
+Q03,DEV,Can Restricted data be copied onto personal devices?,2,0,0.68352,0.115,0,1,1,1,1,1.0,4.78,63.821,68.601
+Q05,DEV,What happens to the new dataset release if a quality check fails?,3,0,0.32878,0.00425,0,1,1,1,1,1.0,5.03,73.29,78.32
+Q07,DEV,What is the default sampling rate for routine dataset evaluation?,4,1,0.07267,0.0633,1,1,1,1,1,1.0,5.15,73.565,5.15
+Q09,DEV,What must be specified when data is Accepted with Conditions?,4,0,0.18513,0.00062,0,2,1,1,1,1.0,5.104,75.741,80.845
+Q11,DEV,What evidence-recall decrease triggers a release investigation?,5,0,0.53262,0.10227,0,1,1,1,1,1.0,5.026,67.903,72.929
+Q13,DEV,What chunk size and overlap does the handbook recommend?,6,1,0.01082,0.04635,0,2,1,1,1,1.0,5.066,69.698,74.764
+Q15,DEV,How does a cross-encoder evaluate question and passage relevance?,7,1,0.35103,0.23399,1,1,1,1,1,1.0,5.164,71.22,5.164
+Q17,DEV,What must the assistant say if the handbook cannot answer a question?,8,0,0.12233,0.01712,0,1,1,1,1,1.0,5.278,66.45,71.728
+Q19,DEV,What OpenAI-compatible chat-completions URL path does vLLM expose?,9,1,0.4885,0.15618,1,1,1,1,1,1.0,4.886,75.352,4.886
+Q02,HOLDOUT,Who must additionally approve access to Restricted data?,2,0,0.21243,0.03147,0,1,1,1,1,1.0,4.861,67.311,72.172
+Q04,HOLDOUT,What are the five data quality dimensions?,3,1,0.44452,0.11684,1,1,1,1,1,1.0,5.044,66.696,5.044
+Q06,HOLDOUT,How quickly must new daily data become available?,3,0,0.25689,0.01925,0,2,1,1,1,1.0,5.153,67.277,72.43
+Q08,HOLDOUT,How much of the sample is reviewed by a second annotator?,4,1,0.24701,0.03787,1,1,1,1,1,1.0,5.422,70.501,5.422
+Q10,HOLDOUT,How many answerable and unanswerable questions are in the pilot benchmark?,5,1,0.47837,0.15844,1,1,1,1,1,1.0,5.281,76.596,5.281
+Q12,HOLDOUT,Does a reranker score of 7.5 mean 75 percent confidence?,5,1,0.56751,0.09377,1,1,1,1,1,1.0,5.33,75.877,5.33
+Q14,HOLDOUT,How are embedding vectors prepared for FAISS cosine-similarity search?,6,1,0.05363,0.0121,1,1,1,1,1,1.0,4.887,65.486,4.887
+Q16,HOLDOUT,What is the ranking benefit and latency drawback of reranking?,7,0,0.30629,0.02953,0,1,1,1,1,1.0,5.138,72.262,77.399
+Q18,HOLDOUT,Should an instruction embedded in a retrieved PDF override the application rules?,8,1,0.17306,0.00089,1,1,1,1,1,1.0,4.9,71.948,4.9
+Q20,HOLDOUT,Why distinguish cold-start and warm-request response latency?,10,0,0.42091,0.16768,0,2,1,1,1,1.0,4.803,73.245,78.049
