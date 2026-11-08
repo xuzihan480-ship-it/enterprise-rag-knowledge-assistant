@@ -1,0 +1,27 @@
+{
+  "generated_at_utc": "2026-11-08T09:47:18.940550+00:00",
+  "dataset": "fictional 10-page enterprise handbook; 20 hand-labelled queries",
+  "pdf_filename": "enterprise_knowledge_base_demo.pdf",
+  "questions": 20,
+  "pdf_chunks": 48,
+  "candidate_k": 8,
+  "metric_k": 3,
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "rerank_model": "cross-encoder/ms-marco-MiniLM-L6-v2",
+  "faiss_hit_at_3": 0.95,
+  "rerank_hit_at_3": 0.95,
+  "faiss_mrr_at_8": 0.6833333333333333,
+  "rerank_mrr_at_8": 0.9166666666666666,
+  "candidate_hit_at_8": 0.95,
+  "mean_faiss_seconds": 0.00515,
+  "mean_rerank_extra_seconds": 0.07314000000000001,
+  "mean_total_with_rerank_seconds": 0.07829,
+  "notes": [
+    "Both methods use identical top-8 FAISS candidates; reranking only changes order.",
+    "Hit@3 equals Recall@3 for a query treated as one required evidence fact.",
+    "Gold facts were hand-labelled using page + exact supporting evidence phrase.",
+    "MRR@8 is calculated within the initial top-8 retrieval set.",
+    "The benchmark measures retrieval only, NOT generated-answer correctness.",
+    "Data are synthetic and small; reported scores cannot generalise to production."
+  ]
+}

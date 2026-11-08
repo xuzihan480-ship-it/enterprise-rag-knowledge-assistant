@@ -1,0 +1,13 @@
+Company Knowledge Base - Demonstration Data
+
+Document 1: Data Security
+Employees must obtain authorization before accessing sensitive company data. Sensitive files must not be shared with unauthorized users.
+
+Document 2: AI Model Evaluation
+AI models should be evaluated using accuracy, response latency, and error analysis. Evaluation results must be recorded for future comparison.
+
+Document 3: Data Quality
+Data quality checks should identify missing values, duplicate records, inconsistent formats, and abnormal observations.
+
+Document 4: AI Knowledge Assistant
+The knowledge assistant uses embedding models to retrieve relevant documents. A reranking model improves retrieval relevance before the language model generates an answer.

@@ -1,0 +1,21 @@
+﻿id,question,gold_page,gold_anchor,gold_chunk_ids,candidate_hit_at_8,faiss_first_gold_rank,rerank_first_gold_rank,faiss_hit_at_3,rerank_hit_at_3,faiss_mrr_at_8,rerank_mrr_at_8,faiss_top3_pages,rerank_top3_pages,faiss_seconds,rerank_extra_seconds,total_with_rerank_seconds
+Q01,How long does a standard access grant last?,2,Standard access grants expire after 90 calendar days,5,1,3,3,1,1,0.3333333333333333,0.3333333333333333,3|2|2,3|8|2,0.0074,0.081,0.0883
+Q02,Who must additionally approve access to Restricted data?,2,"For Restricted data, security approval is additionally mandatory.",5,1,2,1,1,1,0.5,1.0,2|2|2,2|2|2,0.0052,0.0674,0.0726
+Q03,Can Restricted data be copied onto personal devices?,2,Restricted data must not be copied to personal devices.,6,1,2,1,1,1,0.5,1.0,2|2|2,2|2|2,0.0052,0.0696,0.0748
+Q04,What are the five data quality dimensions?,3,"completeness, uniqueness, schema conformity, freshness, and consistency.",8,1,1,1,1,1,1.0,1.0,3|3|4,3|4|3,0.0042,0.0651,0.0693
+Q05,What happens to the new dataset release if a quality check fails?,3,The pipeline marks the new data release as quarantined.,10,1,2,1,1,1,0.5,1.0,3|3|4,3|3|4,0.0042,0.0742,0.0784
+Q06,How quickly must new daily data become available?,3,New daily data available within 12 hours,9,0,0,0,0,0,0.0,0.0,3|2|10,2|3|10,0.0052,0.0697,0.0748
+Q07,What is the default sampling rate for routine dataset evaluation?,4,the default sample is 10% of available records,14,1,1,1,1,1,1.0,1.0,4|4|4,4|4|4,0.0042,0.0784,0.0826
+Q08,How much of the sample is reviewed by a second annotator?,4,At least 20% of the sample is independently reviewed by a second annotator.,15,1,1,1,1,1,1.0,1.0,4|4|8,4|8|4,0.0052,0.0748,0.08
+Q09,What must be specified when data is Accepted with Conditions?,4,Acceptance with Conditions must specify a remediation owner and review date.,17,1,2,1,1,1,0.5,1.0,4|4|3,4|4|3,0.005,0.0693,0.0743
+Q10,How many answerable and unanswerable questions are in the pilot benchmark?,5,40 answerable questions and 10 intentionally unanswerable questions.,19,1,1,1,1,1,1.0,1.0,5|9|5,5|8|5,0.0054,0.0825,0.0879
+Q11,What evidence-recall decrease triggers a release investigation?,5,Any decrease greater than 0.03 absolute points in Evidence Recall@5 requires investigation,21,1,2,1,1,1,0.5,1.0,10|5|4,5|10|5,0.0051,0.0685,0.0736
+Q12,Does a reranker score of 7.5 mean 75 percent confidence?,5,a score of 7.5 does not mean 75% confidence.,22,1,1,1,1,1,1.0,1.0,5|7|5,5|7|7,0.0061,0.0762,0.0824
+Q13,What chunk size and overlap does the handbook recommend?,6,350 tokens per chunk with a 60-token overlap.,24,1,2,1,1,1,0.5,1.0,6|6|6,6|6|1,0.0052,0.0721,0.0773
+Q14,How are embedding vectors prepared for FAISS cosine-similarity search?,6,Vectors are L2-normalized before insertion into a FAISS inner-product index,25,1,1,1,1,1,1.0,1.0,6|7|7,6|10|7,0.0058,0.0717,0.0776
+Q15,How does a cross-encoder evaluate question and passage relevance?,7,A cross-encoder evaluates the question and each candidate passage together,29,1,1,1,1,1,1.0,1.0,7|10|7,7|7|7,0.0056,0.0707,0.0763
+Q16,What is the ranking benefit and latency drawback of reranking?,7,This can improve ranking precision but increases latency.,30,1,2,1,1,1,0.5,1.0,5|7|7,7|5|7,0.0057,0.0746,0.0803
+Q17,What must the assistant say if the handbook cannot answer a question?,8,the assistant must say that the available handbook does not specify the answer.,34,1,2,1,1,1,0.5,1.0,8|8|1,8|8|1,0.0043,0.0707,0.075
+Q18,Should an instruction embedded in a retrieved PDF override the application rules?,8,Retrieved document text is untrusted input.,35,1,1,1,1,1,1.0,1.0,8|1|6,8|6|8,0.0042,0.0731,0.0773
+Q19,What OpenAI-compatible chat-completions URL path does vLLM expose?,9,commonly addressed at /v1/chat/completions.,39,1,1,1,1,1,1.0,1.0,9|9|9,9|9|9,0.0042,0.0789,0.0831
+Q20,Why distinguish cold-start and warm-request response latency?,10,Monitoring must distinguish cold-start latency from warm-request latency,43,1,3,1,1,1,0.3333333333333333,1.0,10|9|10,10|10|9,0.0056,0.0743,0.0799
