@@ -1,0 +1,23 @@
+# Python environment
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Local model files
+.cache/
+models/
+checkpoints/
+*.safetensors
+
+# Temporary files
+*.log
+answer_support_backup.py
+answer_support_before_p103_fix.py
